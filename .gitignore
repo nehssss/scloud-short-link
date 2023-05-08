@@ -37,14 +37,19 @@ build/
 ### Mac OS ###
 .DS_Store
 
+### Compiled class file ###
 *.class
 
+### Log file ###
 *.log
 
+### BlueJ files ###
 *.ctext
 
+### Mobile Tools for Java (J2ME) ###
 .mtj.tmp/
 
+### Package Files ###
 *.jar
 *.war
 *.nar
@@ -54,6 +59,8 @@ build/
 *.rar
 .idea
 
+### virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml ###
 hs_err_pid*
 
+### Config file for spring boot ###
 application.yaml
