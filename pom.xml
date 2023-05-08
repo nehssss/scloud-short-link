@@ -2,7 +2,7 @@
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
-  <groupId>org.haitaos</groupId>
+  <groupId>com.haitaos</groupId>
   <artifactId>scloud-short-link</artifactId>
   <version>1.0-SNAPSHOT</version>
   <packaging>pom</packaging>
@@ -40,14 +40,13 @@
     <captcha.version>1.1.0</captcha.version>
 
     <redisson.version>3.21.0</redisson.version>
-    <jwt.version>4.4.0</jwt.version>
+    <jwt.version>0.11.5</jwt.version>
     <sharding-jdbc.version>4.1.1</sharding-jdbc.version>
 
     <druid.verion>1.2.16</druid.verion>
-    <junit.version>5.9.2</junit.version>
-    <sharding-sphere-jdbc.version>5.3.2</sharding-sphere-jdbc.version>
+    <junit.version>4.13.2</junit.version>
+    <sharding-sphere-jdbc.version>5.2.1</sharding-sphere-jdbc.version>
 
-    <junit.version>5.9.2</junit.version>
     <docker.image.prefix>haitaos</docker.image.prefix>
   </properties>
 
@@ -60,11 +59,15 @@
         <type>pom</type>
         <scope>import</scope>
       </dependency>
+
       <dependency>
         <groupId>org.springframework.cloud</groupId>
         <artifactId>spring-cloud-dependencies</artifactId>
         <version>${spring.cloud.version}</version>
+        <type>pom</type>
+        <scope>import</scope>
       </dependency>
+
       <dependency>
         <groupId>com.alibaba.cloud</groupId>
         <artifactId>spring-cloud-alibaba-dependencies</artifactId>
@@ -72,6 +75,7 @@
         <type>pom</type>
         <scope>import</scope>
       </dependency>
+
       <dependency>
         <groupId>io.awspring.cloud</groupId>
         <artifactId>spring-cloud-aws-dependencies</artifactId>
@@ -106,8 +110,20 @@
 
       <dependency>
         <groupId>io.jsonwebtoken</groupId>
-        <artifactId>jjwt</artifactId>
+        <artifactId>jjwt-api</artifactId>
         <version>${jwt.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>io.jsonwebtoken</groupId>
+        <artifactId>jjwt-impl</artifactId>
+        <version>${jwt.version}</version>
+        <scope>runtime</scope>
+      </dependency>
+      <dependency>
+        <groupId>io.jsonwebtoken</groupId>
+        <artifactId>jjwt-jackson</artifactId>
+        <version>${jwt.version}</version><!-- or jjwt-gson if Gson is preferred -->
+        <scope>runtime</scope>
       </dependency>
 
       <dependency>
@@ -118,13 +134,13 @@
 
       <dependency>
         <groupId>org.apache.shardingsphere</groupId>
-        <artifactId>shardingsphere-jdbc</artifactId>
+        <artifactId>shardingsphere-jdbc-core-spring-boot-starter</artifactId>
         <version>${sharding-sphere-jdbc.version}</version>
       </dependency>
 
       <dependency>
-        <groupId>org.junit.jupiter</groupId>
-        <artifactId>junit-jupiter</artifactId>
+        <groupId>junit</groupId>
+        <artifactId>junit</artifactId>
         <version>${junit.version}</version>
         <scope>test</scope>
       </dependency>
