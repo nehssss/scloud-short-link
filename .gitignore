@@ -64,3 +64,4 @@ hs_err_pid*
 
 ### Config file for spring boot ###
 application.yaml
+applicatoin.yml
