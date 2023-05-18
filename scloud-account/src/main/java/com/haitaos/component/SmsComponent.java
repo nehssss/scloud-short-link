@@ -6,6 +6,9 @@ import org.springframework.http.*;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.HashMap;
+import java.util.Map;
+
 @Component
 @Slf4j
 public class SmsComponent {
@@ -26,8 +29,8 @@ public class SmsComponent {
   public void send(String to, String templateId, String value) {
     String url = String.format(URL_TEMPLATE, to, templateId, value);
     HttpHeaders httpHeaders = new HttpHeaders();
-    httpHeaders.set("Authoration", "APPCODE " + smsConfig.getAppCode());
-    HttpEntity entity = new HttpEntity(httpHeaders);
+    httpHeaders.set("Authorization", "APPCODE " + smsConfig.getAppCode());
+    HttpEntity<Map<String, String>> entity = new HttpEntity<>(httpHeaders);
     ResponseEntity<String> response =
         restTemplate.exchange(url, HttpMethod.POST, entity, String.class);
     log.info("url={}, body{}", url, response.getBody());
