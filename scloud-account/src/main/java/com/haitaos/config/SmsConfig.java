@@ -9,7 +9,7 @@ import org.springframework.context.annotation.Configuration;
 @Data
 public class SmsConfig {
 
-    private String templateId;
+  private String templateId;
 
-    private String appCode;
+  private String appCode;
 }

@@ -13,30 +13,24 @@ import lombok.EqualsAndHashCode;
 @TableName("traffic_task")
 public class TrafficTaskDO implements Serializable {
 
-    private static final long serialVersionUID = 1L;
+  private static final long serialVersionUID = 1L;
 
-      @TableId(value = "id", type = IdType.AUTO)
-    private Long id;
+  @TableId(value = "id", type = IdType.AUTO)
+  private Long id;
 
-    private Long accountNo;
+  private Long accountNo;
 
-    private Long trafficId;
+  private Long trafficId;
 
-    private Integer useTimes;
+  private Integer useTimes;
 
-    /**
-     * 锁定状态锁定LOCK  完成FINISH-取消CANCEL
-     */
-    private String lockState;
+  /** Status: LOCK, FINISH, CANCEL */
+  private String lockState;
 
-    /**
-     * 唯一标识
-     */
-    private String messageId;
+  /** Unique Identification */
+  private String messageId;
 
-    private Date gmtCreate;
+  private Date gmtCreate;
 
-    private Date gmtModified;
-
-
+  private Date gmtModified;
 }
