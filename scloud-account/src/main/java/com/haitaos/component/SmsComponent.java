@@ -3,6 +3,7 @@ package com.haitaos.component;
 import com.haitaos.config.SmsConfig;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.*;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
@@ -26,6 +27,7 @@ public class SmsComponent {
     this.smsConfig = smsConfig;
   }
 
+  @Async
   public void send(String to, String templateId, String value) {
     String url = String.format(URL_TEMPLATE, to, templateId, value);
     HttpHeaders httpHeaders = new HttpHeaders();

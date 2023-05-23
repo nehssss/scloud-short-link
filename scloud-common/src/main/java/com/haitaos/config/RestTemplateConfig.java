@@ -17,8 +17,6 @@ import org.springframework.http.client.ClientHttpRequestFactory;
 import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.web.client.RestTemplate;
 
-
-
 @Configuration
 public class RestTemplateConfig {
 
@@ -33,20 +31,24 @@ public class RestTemplateConfig {
   }
 
   public HttpClient httpClient() {
-    Registry<ConnectionSocketFactory> registry = RegistryBuilder.<ConnectionSocketFactory>create()
+    Registry<ConnectionSocketFactory> registry =
+        RegistryBuilder.<ConnectionSocketFactory>create()
             .register("http", PlainConnectionSocketFactory.getSocketFactory())
             .register("https", SSLConnectionSocketFactory.getSocketFactory())
             .build();
-    PoolingHttpClientConnectionManager connectionManager = new PoolingHttpClientConnectionManager(registry);
+    PoolingHttpClientConnectionManager connectionManager =
+        new PoolingHttpClientConnectionManager(registry);
 
-    //Set the connection pool to a maximum of 500 connections
+    // Set the connection pool to a maximum of 500 connections
     connectionManager.setMaxTotal(500);
 
-    //MaxPerRoute is a breakdown of maxtotal, the maximum concurrency per host is 300, and route is the domain name
+    // MaxPerRoute is a breakdown of maxtotal, the maximum concurrency per host is 300, and route is
+    // the domain name
     connectionManager.setDefaultMaxPerRoute(300);
 
-    RequestConfig requestConfig = RequestConfig.custom()
-            //Timeout for returning data from the server
+    RequestConfig requestConfig =
+        RequestConfig.custom()
+            // Timeout for returning data from the server
             .setResponseTimeout(Timeout.ofDays(20000))
             // Timeout time to connect to the server
             .setConnectTimeout(Timeout.ofDays(10000))
@@ -54,10 +56,11 @@ public class RestTemplateConfig {
             .setConnectionRequestTimeout(Timeout.ofDays(1000))
             .build();
 
-    CloseableHttpClient closeableHttpClient = HttpClientBuilder.create().setDefaultRequestConfig(requestConfig)
+    CloseableHttpClient closeableHttpClient =
+        HttpClientBuilder.create()
+            .setDefaultRequestConfig(requestConfig)
             .setConnectionManager(connectionManager)
             .build();
     return closeableHttpClient;
-
   }
 }
