@@ -1,16 +1,18 @@
 package com.haitaos.controller;
 
 import com.google.code.kaptcha.Producer;
+import com.haitaos.controller.request.SendCodeRequest;
+import com.haitaos.enums.BizCodeEnum;
+import com.haitaos.enums.SendCodeEnum;
 import com.haitaos.service.NotifyService;
 import com.haitaos.util.CommonUtil;
+import com.haitaos.util.JsonData;
 import jakarta.servlet.ServletOutputStream;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.redis.core.StringRedisTemplate;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
@@ -69,5 +71,23 @@ public class NotifyController {
     String key = "account-service:captcha:" + CommonUtil.MD5(ip + userAgent);
     log.info("Captcha key:{}", key);
     return key;
+  }
+
+  @PostMapping("send_code")
+  public JsonData sendCode(
+      @RequestBody SendCodeRequest sendCodeRequest, HttpServletRequest request) {
+    String key = getCaptchaKey(request);
+    String cacheCaptcha = redisTemplate.opsForValue().get(key);
+    String captcha = sendCodeRequest.getCaptcha();
+    if (captcha != null && cacheCaptcha != null && cacheCaptcha.equalsIgnoreCase(captcha)) {
+      // success
+      redisTemplate.delete(key);
+      // send code
+      JsonData jsonData =
+          notifyService.sendCode(SendCodeEnum.USER_REGISTER, sendCodeRequest.getTo());
+      return jsonData;
+    } else {
+      return JsonData.buildResult(BizCodeEnum.CODE_CAPTCHA_ERROR);
+    }
   }
 }
