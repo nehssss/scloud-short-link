@@ -15,11 +15,6 @@ public class SmsTest {
 
   @Autowired private SmsConfig smsConfig;
 
-  //  public SmsTest(SmsComponent smsComponent, SmsConfig smsConfig) {
-  //    this.smsComponent = smsComponent;
-  //    this.smsConfig = smsConfig;
-  //  }
-
   @Test
   public void testSendSms() {
     smsComponent.send("11111111111", smsConfig.getTemplateId(), "123456");
