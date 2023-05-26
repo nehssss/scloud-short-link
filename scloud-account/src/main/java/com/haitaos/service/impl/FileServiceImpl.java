@@ -51,7 +51,7 @@ public class FileServiceImpl implements FileService {
       // concat return url
       return upload.getURL().toString();
     } catch (IOException e) {
-      log.error("upload user image fail:{}", e);
+      log.error("upload user image fail:{}", e.getMessage());
     }
     return null;
   }
