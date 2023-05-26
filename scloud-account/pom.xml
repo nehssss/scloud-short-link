@@ -27,11 +27,12 @@
                     <groupId>org.apache.shardingsphere</groupId>
                     <artifactId>shardingsphere-jdbc-core-spring-boot-starter</artifactId>
                 </exclusion>
-                <exclusion>
-                    <groupId>io.awspring.cloud</groupId>
-                    <artifactId>spring-cloud-aws-starter</artifactId>
-                </exclusion>
             </exclusions>
+        </dependency>
+
+        <dependency>
+            <groupId>io.awspring.cloud</groupId>
+            <artifactId>spring-cloud-aws-starter-s3</artifactId>
         </dependency>
 
         <dependency>
