@@ -49,9 +49,7 @@ public class FileServiceImpl implements FileService {
     try {
       S3Resource upload = s3Template.upload(bucketName, newFolderName, file.getInputStream());
       // concat return url
-      if (upload != null) {
-        String imgUrl = upload.getURL().toString();
-      }
+      return upload.getURL().toString();
     } catch (IOException e) {
       log.error("upload user image fail:{}", e);
     }

@@ -3,6 +3,8 @@ package com.haitaos.controller;
 import com.haitaos.enums.BizCodeEnum;
 import com.haitaos.service.FileService;
 import com.haitaos.util.JsonData;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestPart;
@@ -11,6 +13,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 @RestController
 @RequestMapping("/api/v1/account")
+@Slf4j
 public class AccountController {
 
   private FileService fileService;
