@@ -1,14 +1,13 @@
 package com.haitaos.controller;
 
+import com.haitaos.controller.request.AccountRegisterRequest;
 import com.haitaos.enums.BizCodeEnum;
+import com.haitaos.service.AccountService;
 import com.haitaos.service.FileService;
 import com.haitaos.util.JsonData;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestPart;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 @RestController
@@ -18,9 +17,12 @@ public class AccountController {
 
   private FileService fileService;
 
-  public AccountController(FileService fileService) {
+  private AccountService accountService;
+
+  public AccountController(FileService fileService, AccountService accountService) {
     super();
     this.fileService = fileService;
+    this.accountService = accountService;
   }
 
   /**
@@ -35,5 +37,17 @@ public class AccountController {
     return result != null
         ? JsonData.buildSuccess(result)
         : JsonData.buildResult(BizCodeEnum.FILE_UPLOAD_USER_IMG_FAIL);
+  }
+
+  /**
+   * user register
+   *
+   * @param accountRegisterRequest
+   * @return
+   */
+  @PostMapping("register")
+  public JsonData register(@RequestBody AccountRegisterRequest accountRegisterRequest) {
+    JsonData jsonData = accountService.register(accountRegisterRequest);
+    return jsonData;
   }
 }

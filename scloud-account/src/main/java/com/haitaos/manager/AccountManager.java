@@ -1,3 +1,7 @@
 package com.haitaos.manager;
 
-public interface AccountManager {}
+import com.haitaos.model.AccountDO;
+
+public interface AccountManager {
+  int insert(AccountDO accountDO);
+}

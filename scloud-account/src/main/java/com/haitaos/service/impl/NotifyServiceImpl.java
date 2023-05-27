@@ -75,4 +75,29 @@ public class NotifyServiceImpl implements NotifyService {
     }
     return JsonData.buildError("Send code failed");
   }
+
+  /**
+   * check verification code logic
+   *
+   * @param sendCodeEnum
+   * @param to
+   * @param code
+   * @return
+   */
+  @Override
+  public boolean checkCode(SendCodeEnum sendCodeEnum, String to, String code) {
+    String cacheKey = String.format(RedisKey.CHECK_CODE_KEY, sendCodeEnum.name(), to);
+
+    String cacheValue = stringRedisTemplate.opsForValue().get(cacheKey);
+
+    if (StringUtils.isNotBlank(cacheValue)) {
+      String cacheCode = cacheValue.split("_")[0];
+      if (cacheCode.equals(code)) {
+        // delete cache
+        stringRedisTemplate.delete(cacheKey);
+        return true;
+      }
+    }
+    return false;
+  }
 }
