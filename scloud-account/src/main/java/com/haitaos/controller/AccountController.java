@@ -1,5 +1,6 @@
 package com.haitaos.controller;
 
+import com.haitaos.controller.request.AccountLoginRequest;
 import com.haitaos.controller.request.AccountRegisterRequest;
 import com.haitaos.enums.BizCodeEnum;
 import com.haitaos.service.AccountService;
@@ -47,7 +48,19 @@ public class AccountController {
    */
   @PostMapping("register")
   public JsonData register(@RequestBody AccountRegisterRequest accountRegisterRequest) {
-    JsonData jsonData = accountService.register(accountRegisterRequest);
-    return jsonData;
+    JsonData result = accountService.register(accountRegisterRequest);
+    return result;
+  }
+
+  /**
+   * user login
+   *
+   * @param accountLoginRequest
+   * @return
+   */
+  @PostMapping("login")
+  public JsonData login(@RequestBody AccountLoginRequest accountLoginRequest) {
+    JsonData result = accountService.login(accountLoginRequest);
+    return result;
   }
 }
