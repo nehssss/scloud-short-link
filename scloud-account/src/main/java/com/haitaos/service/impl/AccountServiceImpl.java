@@ -11,6 +11,7 @@ import com.haitaos.model.LoginUser;
 import com.haitaos.service.AccountService;
 import com.haitaos.service.NotifyService;
 import com.haitaos.util.CommonUtil;
+import com.haitaos.util.JWTUtil;
 import com.haitaos.util.JsonData;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.codec.digest.Md5Crypt;
@@ -88,8 +89,9 @@ public class AccountServiceImpl implements AccountService {
       if (md5Crypt.equals(accountDO.getPwd())) {
         LoginUser loginUser = LoginUser.builder().build();
         BeanUtils.copyProperties(accountDO, loginUser);
-        // generate token TODO
-        return JsonData.buildSuccess("");
+        // generate token
+        String token = JWTUtil.generateJsonWebToken(loginUser);
+        return JsonData.buildSuccess(token);
       } else {
         return JsonData.buildResult(BizCodeEnum.ACCOUNT_PWD_ERROR);
       }

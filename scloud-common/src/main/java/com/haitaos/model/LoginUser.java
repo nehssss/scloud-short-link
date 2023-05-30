@@ -18,7 +18,6 @@ public class LoginUser {
   private String headImg;
   /** email */
   private String mail;
-
   /** phone */
   private String phone;
   /** authority level */
