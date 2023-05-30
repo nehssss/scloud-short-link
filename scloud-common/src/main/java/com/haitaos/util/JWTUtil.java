@@ -17,7 +17,10 @@ public class JWTUtil {
   /** subject * */
   private static final String SUBJECT = "scloud";
 
-  /** secret key as AES encryption key* */
+  /**
+   * secret key as AES encryption key key length must be 256 bytes and must be base64 encode this
+   * key to config file TODO
+   */
   private static final String SECRET = "Ok570d4DN33l2kTufXJI9EcOt33xQHZkRJfsYvZAY+4=";
 
   /** token prefix * */
