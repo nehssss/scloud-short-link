@@ -1,12 +1,14 @@
 package com.haitaos.util;
 
-import com.haitaos.exception.BizException;
 import com.haitaos.model.LoginUser;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.io.Decoders;
+import io.jsonwebtoken.security.Keys;
 import lombok.extern.slf4j.Slf4j;
 
+import javax.crypto.SecretKey;
 import java.util.Date;
 
 @Slf4j
@@ -15,8 +17,8 @@ public class JWTUtil {
   /** subject * */
   private static final String SUBJECT = "scloud";
 
-  /** secret key* */
-  private static final String SECRET = "123456";
+  /** secret key as AES encryption key* */
+  private static final String SECRET = "Ok570d4DN33l2kTufXJI9EcOt33xQHZkRJfsYvZAY+4=";
 
   /** token prefix * */
   private static final String TOKEN_PREFIX = "scloud-link";
@@ -35,18 +37,21 @@ public class JWTUtil {
       throw new NullPointerException("loginUser is null");
     }
 
+    byte[] keyBytes = Decoders.BASE64.decode(SECRET);
+    SecretKey secretKey = Keys.hmacShaKeyFor(keyBytes);
+
     String token =
         Jwts.builder()
             .setSubject(SUBJECT)
             // setting payload
-            .claim("head)img", loginUser.getHeadImg())
+            .claim("head_img", loginUser.getHeadImg())
             .claim("username", loginUser.getUserName())
             .claim("mail", loginUser.getMail())
             .claim("phone", loginUser.getPhone())
             .claim("auth", loginUser.getAuth())
             .setIssuedAt(new Date())
             .setExpiration(new Date(CommonUtil.getCurrentTimestamp() + EXPIRED))
-            .signWith(SignatureAlgorithm.HS256, SECRET)
+            .signWith(secretKey, SignatureAlgorithm.HS256)
             .compact();
     token = TOKEN_PREFIX + token;
     return token;

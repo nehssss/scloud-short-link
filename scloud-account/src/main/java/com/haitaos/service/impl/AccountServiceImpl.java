@@ -70,7 +70,7 @@ public class AccountServiceImpl implements AccountService {
 
     // user registration success, give a default traffic task
     userRegisterInitTask(accountDO);
-    return null;
+    return rows == 1 ? JsonData.buildSuccess() : JsonData.buildResult(BizCodeEnum.ACCOUNT_UNREGISTER);
   }
 
   /**
