@@ -1,6 +1,6 @@
 package com.haitaos.component;
 
-import com.haitaos.config.SmsConfig;
+import com.haitaos.config.SmsConfiguration;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.*;
 import org.springframework.scheduling.annotation.Async;
@@ -19,18 +19,18 @@ public class SmsComponent {
 
   private RestTemplate restTemplate;
 
-  private SmsConfig smsConfig;
+  private SmsConfiguration smsConfiguration;
 
-  public SmsComponent(RestTemplate restTemplate, SmsConfig smsConfig) {
+  public SmsComponent(RestTemplate restTemplate, SmsConfiguration smsConfiguration) {
     this.restTemplate = restTemplate;
-    this.smsConfig = smsConfig;
+    this.smsConfiguration = smsConfiguration;
   }
 
   @Async
   public void send(String to, String templateId, String value) {
     String url = String.format(URL_TEMPLATE, to, templateId, value);
     HttpHeaders httpHeaders = new HttpHeaders();
-    httpHeaders.set("Authorization", "APPCODE " + smsConfig.getAppCode());
+    httpHeaders.set("Authorization", "APPCODE " + smsConfiguration.getAppCode());
     HttpEntity<Map<String, String>> entity = new HttpEntity<>(httpHeaders);
     ResponseEntity<String> response =
         restTemplate.exchange(url, HttpMethod.POST, entity, String.class);

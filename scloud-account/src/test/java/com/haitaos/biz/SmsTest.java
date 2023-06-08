@@ -1,7 +1,7 @@
 package com.haitaos.biz;
 
 import com.haitaos.component.SmsComponent;
-import com.haitaos.config.SmsConfig;
+import com.haitaos.config.SmsConfiguration;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,10 +13,10 @@ public class SmsTest {
 
   @Autowired private SmsComponent smsComponent;
 
-  @Autowired private SmsConfig smsConfig;
+  @Autowired private SmsConfiguration smsConfiguration;
 
   @Test
   public void testSendSms() {
-    smsComponent.send("11111111111", smsConfig.getTemplateId(), "123456");
+    smsComponent.send("11111111111", smsConfiguration.getTemplateId(), "123456");
   }
 }

@@ -1,7 +1,7 @@
 package com.haitaos.service.impl;
 
 import com.haitaos.component.SmsComponent;
-import com.haitaos.config.SmsConfig;
+import com.haitaos.config.SmsConfiguration;
 import com.haitaos.constant.RedisKey;
 import com.haitaos.enums.BizCodeEnum;
 import com.haitaos.enums.SendCodeEnum;
@@ -25,18 +25,18 @@ public class NotifyServiceImpl implements NotifyService {
 
   private SmsComponent smsComponent;
 
-  private SmsConfig smsConfig;
+  private SmsConfiguration smsConfiguration;
   private RestTemplate restTemplate;
 
   private StringRedisTemplate stringRedisTemplate;
 
   public NotifyServiceImpl(
       SmsComponent smsComponent,
-      SmsConfig smsConfig,
+      SmsConfiguration smsConfiguration,
       RestTemplate restTemplate,
       StringRedisTemplate stringRedisTemplate) {
     this.smsComponent = smsComponent;
-    this.smsConfig = smsConfig;
+    this.smsConfiguration = smsConfiguration;
     this.restTemplate = restTemplate;
     this.stringRedisTemplate = stringRedisTemplate;
   }
@@ -70,7 +70,7 @@ public class NotifyServiceImpl implements NotifyService {
       // send email TODO
     } else if (CheckUtil.isPhone(to)) {
       // send sms verification code
-      smsComponent.send(to, smsConfig.getTemplateId(), code);
+      smsComponent.send(to, smsConfiguration.getTemplateId(), code);
       return JsonData.buildSuccess();
     }
     return JsonData.buildError("Send code failed");

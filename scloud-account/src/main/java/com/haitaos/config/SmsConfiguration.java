@@ -7,7 +7,7 @@ import org.springframework.context.annotation.Configuration;
 @ConfigurationProperties(prefix = "sms")
 @Configuration
 @Data
-public class SmsConfig {
+public class SmsConfiguration {
 
   private String templateId;
 

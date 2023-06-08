@@ -11,6 +11,7 @@ import com.haitaos.model.LoginUser;
 import com.haitaos.service.AccountService;
 import com.haitaos.service.NotifyService;
 import com.haitaos.util.CommonUtil;
+import com.haitaos.util.IDUtil;
 import com.haitaos.util.JWTUtil;
 import com.haitaos.util.JsonData;
 import lombok.extern.slf4j.Slf4j;
@@ -56,8 +57,8 @@ public class AccountServiceImpl implements AccountService {
     // set default authorization level
     accountDO.setAuth(AuthTypeEnum.DEFAULT.name());
 
-    // generate unify account number TODO
-    accountDO.setAccountNo(CommonUtil.getCurrentTimestamp());
+    // generate unify account number
+    accountDO.setAccountNo(IDUtil.geneSnowflakeID());
 
     // setting password
     accountDO.setSecret("$1$" + CommonUtil.getStringNumRandom(8));
@@ -70,7 +71,9 @@ public class AccountServiceImpl implements AccountService {
 
     // user registration success, give a default traffic task
     userRegisterInitTask(accountDO);
-    return rows == 1 ? JsonData.buildSuccess() : JsonData.buildResult(BizCodeEnum.ACCOUNT_UNREGISTER);
+    return rows == 1
+        ? JsonData.buildSuccess()
+        : JsonData.buildResult(BizCodeEnum.ACCOUNT_UNREGISTER);
   }
 
   /**

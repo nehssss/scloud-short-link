@@ -1,6 +1,6 @@
 package com.haitaos.service.impl;
 
-import com.haitaos.config.S3Config;
+import com.haitaos.config.S3Configuration;
 import com.haitaos.service.FileService;
 import com.haitaos.util.CommonUtil;
 import io.awspring.cloud.s3.S3Resource;
@@ -20,17 +20,17 @@ public class FileServiceImpl implements FileService {
   /** s3 template, the higher level of s3 client */
   private S3Template s3Template;
 
-  private S3Config s3Config;
+  private S3Configuration s3Configuration;
 
-  public FileServiceImpl(S3Template s3Template, S3Config s3Config) {
+  public FileServiceImpl(S3Template s3Template, S3Configuration s3Configuration) {
     super();
     this.s3Template = s3Template;
-    this.s3Config = s3Config;
+    this.s3Configuration = s3Configuration;
   }
 
   @Override
   public String uploadUserImg(MultipartFile file) {
-    String bucketName = s3Config.getBucketName();
+    String bucketName = s3Configuration.getBucketName();
     // get original file name
     String originalFilename = file.getOriginalFilename();
 
