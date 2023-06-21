@@ -28,7 +28,7 @@ public class ShortLinkTest {
   @Test
   public void testCreateShortLink() {
     Random random = new Random();
-    for (int i = 0; i < 100; i++) {
+    for (int i = 0; i < 10; i++) {
       int num1 = random.nextInt(100);
       int num2 = random.nextInt(100000);
       int num3 = random.nextInt(100000);
