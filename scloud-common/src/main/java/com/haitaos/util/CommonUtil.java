@@ -1,5 +1,6 @@
 package com.haitaos.util;
 
+import com.google.common.hash.Hashing;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
@@ -167,5 +168,14 @@ public class CommonUtil {
     } catch (IOException e) {
       log.warn("sendJsonMessage error:{}", e.getMessage());
     }
+  }
+
+  /**
+   * murmurhash algorithm
+   * @param param
+   * @return
+   */
+  public static long murmurHash32(String param) {
+    return Hashing.murmur3_32().hashUnencodedChars(param).padToLong();
   }
 }
