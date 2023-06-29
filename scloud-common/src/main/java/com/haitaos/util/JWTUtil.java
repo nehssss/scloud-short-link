@@ -48,7 +48,8 @@ public class JWTUtil {
             .setSubject(SUBJECT)
             // setting payload
             .claim("head_img", loginUser.getHeadImg())
-            .claim("username", loginUser.getUserName())
+            .claim("account_no", loginUser.getAccountNo())
+            .claim("username", loginUser.getUsername())
             .claim("mail", loginUser.getMail())
             .claim("phone", loginUser.getPhone())
             .claim("auth", loginUser.getAuth())

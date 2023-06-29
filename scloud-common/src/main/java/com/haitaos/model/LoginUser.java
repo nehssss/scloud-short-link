@@ -13,7 +13,7 @@ public class LoginUser {
   /** account number */
   private long accountNo;
   /** user name */
-  private String userName;
+  private String username;
   /** user avatar */
   private String headImg;
   /** email */

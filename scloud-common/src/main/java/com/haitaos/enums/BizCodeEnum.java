@@ -13,6 +13,8 @@ public enum BizCodeEnum {
   GROUP_OPER_FAIL(23503, "Group name operation failed"),
   GROUP_NOT_EXIST(23404, "Group does not exist"),
 
+  GROUP_ADD_FAIL(23405, "Group add failed"),
+
   /** verification code */
   CODE_TO_ERROR(240001, "The receiving number is not compliant"),
   CODE_LIMITED(240002, "Verification code sent too fast"),
